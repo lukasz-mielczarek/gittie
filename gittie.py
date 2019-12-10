@@ -6,3 +6,5 @@ def joke():
 def add():
     name = input("Whats your name?": )
     print(name)
+def shout():
+    print("HEY YOU!")
