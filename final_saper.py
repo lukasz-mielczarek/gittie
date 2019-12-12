@@ -39,15 +39,26 @@ def input_map_size():
     global y
     global move_count
     global visiblemap
-    len_edge = int(input("Enter size of map \n "))
-    bomb_num = int(input("Enter number of bombs"))
+    len_edge = 0
+    bomb_num = 0
+    while len_edge not in range(1,16):
+        try:
+            len_edge = int(input("Enter size of map (max:15) "))
+        except:
+            pass
+    max_bomb_num = len_edge ** 2 // 2
+    while bomb_num not in range(1, max_bomb_num):
+        try:
+            bomb_num = int(input("Enter number of bombs (max: 50%\ of squares)"))
+        except:
+            pass
     for line in range(len_edge):
-        hidemap.append([0]*len_edge)
+        hidemap.append([0]*len_edge)         #creating a base fo the hidemap generator
     for line in range(len_edge):
-        visiblemap.append(["[ ]"]*len_edge)
+        visiblemap.append(["[ ]"]*len_edge)      #creating the visiblemap
     x = len_edge // 2
     y = len_edge // 2 #starting position
-    move_count = 0
+    move_count = 0 #initial state of movecount
 
 def screen(hidemap):    
     count = 0
@@ -200,7 +211,6 @@ def screen():
         print(joined_row) 
         count += 1
 
-    print (move_count)
 
 def win_game():
     screen()
@@ -224,8 +234,8 @@ def game_over():
 
 
 def show_instructions():
-    print(">uncover areas on the board by typing in coordinates")
-    print(">type in x and y coordinated separated with a space bar")
+    print(">move around with 'W','A','S','D' keys, check the chosen square with 'C' key")
+    print(">you can mark or unmark the current square with 'F'")
     print(">the uncovered number indicates how many bombs are hidden in neighbouring areas")
     print(">you lose when you uncover a bomb, win when you uncover everything except bombs")
     print(">good luck!")
