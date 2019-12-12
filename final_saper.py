@@ -49,7 +49,7 @@ def input_map_size():
     max_bomb_num = len_edge ** 2 // 2
     while bomb_num not in range(1, max_bomb_num):
         try:
-            bomb_num = int(input("Enter number of bombs (max: 50%\ of squares)"))
+            bomb_num = int(input("Enter number of bombs (max: 50% of squares)"))
         except:
             pass
     for line in range(len_edge):
@@ -113,8 +113,6 @@ def menu():
             show_instructions()
         elif menu_key == "e":
             exit()
-        else:
-            print("value error")
 
 def play_saper():   #zmiany! wprowadzam count odkrytych pól i jak osiagnie len_edge**2 - bomb_num to gracz wygrywa
     global move_count
@@ -239,7 +237,11 @@ def show_instructions():
     print(">the uncovered number indicates how many bombs are hidden in neighbouring areas")
     print(">you lose when you uncover a bomb, win when you uncover everything except bombs")
     print(">good luck!")
-    menu()
+    print("                 press 'm' to return to menu")
+    while 1:
+        key = getch.getch()
+        if key == "m":
+            menu()
 
 
 
