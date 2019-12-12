@@ -1,7 +1,7 @@
 #remember that hidemap is a list of integers and visiblemap a list of strings
 
 
-import colorama
+from colorama import Fore, Back, Style
 import getch #<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< trzeba sciagnac getch
 import os
 import random
@@ -39,7 +39,7 @@ def input_map_size():
     global y
     global move_count
     global visiblemap
-    len_edge = int(input("Enter size of map "))
+    len_edge = int(input("Enter size of map \n "))
     bomb_num = int(input("Enter number of bombs"))
     for line in range(len_edge):
         hidemap.append([0]*len_edge)
@@ -81,11 +81,17 @@ def placeflag(y,x):
 
 def menu():
     print("\n")
-    print("< S * A * P * E * R >")
-    print("\n")
-    print("Play - press 'p'")
-    print("Instructions - press 'i'")
-    print("Exit - press 'e'")
+    print(Fore.CYAN + "< S * A * P * E * R >" .center(60, " "))
+    print(Style.RESET_ALL)
+    
+    print(Back.GREEN + "Play - press 'p'" .center(60, " "))
+    print(Style.RESET_ALL)
+    
+    print(Back.YELLOW + "Instructions - press 'i'" .center(60, " "))
+    print(Style.RESET_ALL)
+    
+    print(Back.RED + "Exit - press 'e'" .center(60, " "))
+    print(Style.RESET_ALL)
     menu_key = 0
     while menu_key not in ["p", "i", "e"]:
         menu_key = getch.getch()
@@ -215,11 +221,6 @@ def game_over():
         key = getch.getch()
         if key == "m":
             menu()
-    visiblemap = [["[ ]","[ ]","[ ]","[ ]","[ ]"], 
-    ["[ ]","[ ]","[ ]","[ ]","[ ]"],
-    ["[ ]","[ ]","[ ]","[ ]","[ ]"],
-    ["[ ]","[ ]","[ ]","[ ]","[ ]"],
-    ["[ ]","[ ]","[ ]","[ ]","[ ]"]]
 
 
 def show_instructions():
