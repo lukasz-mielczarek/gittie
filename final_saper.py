@@ -229,7 +229,7 @@ def game_over():
 
 def show_instructions():
     print(">move around with 'W','A','S','D' keys, check the chosen square with 'C' key")
-    print(">you can mark or unmark the current square with 'F')
+    print(">you can mark or unmark the current square with 'F'")
     print(">the uncovered number indicates how many bombs are hidden in neighbouring areas")
     print(">you lose when you uncover a bomb, win when you uncover everything except bombs")
     print(">good luck!")
