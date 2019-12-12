@@ -64,6 +64,7 @@ def screen(hidemap):
 def hidemap_generator():
     global hidemap
     global visiblemap
+    os.system('clear')
     hidemap = []
     visiblemap = []
     input_map_size()
@@ -85,15 +86,15 @@ def menu():
     print("Play - press 'p'")
     print("Instructions - press 'i'")
     print("Exit - press 'e'")
-    menu_input = " "
-    while menu_input not in ["p", "i", "e"]:
-        menu_input = input(": ")
-        if menu_input == "p":
+    menu_key = 0
+    while menu_key not in ["p", "i", "e"]:
+        menu_key = getch.getch()
+        if menu_key == "p":
             hidemap_generator()
             play_saper()
-        elif menu_input == "i":
+        elif menu_key == "i":
             show_instructions()
-        elif menu_input == "e":
+        elif menu_key == "e":
             exit()
         else:
             print("value error")
