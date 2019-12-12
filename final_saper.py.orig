@@ -1,8 +1,8 @@
+#remember that hidemap is a list of integers and visiblemap a list of strings
 
 
-
-from colorama import Fore, Back, Style # trzeba ściągnąć colorama
-import getch # trzeba sciagnac getch
+from colorama import Fore, Back, Style
+import getch #<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< trzeba sciagnac getch
 import os
 import random
 
@@ -12,7 +12,7 @@ def add_bombs(bomb_num):
     for bomb in range(bomb_num):
         dim1 = random.randint(0,len_edge - 1)
         dim2 = random.randint(0,len_edge - 1)
-        if hidemap[dim1][dim2] != "*": 
+        if hidemap[dim1][dim2] != "*": #bug : bomba sie nie doda jak to pole juz jest zajęte przez bombę
             hidemap[dim1][dim2] = "*"
             addpoints(dim1,dim2)
 
@@ -20,9 +20,9 @@ def addpoints(dim1,dim2):
     global hidemap
     newdim1 = dim1 - 1
     newdim2 = dim2 - 1
-    for square_a in range(3):
+    for b in range(3):
         newdim1 = dim1 - 1
-        for square_b in range(3):
+        for c in range(3):
             try:
                 if newdim1 > -1 and newdim2 > -1:
                     hidemap[newdim1][newdim2] += 1
@@ -39,26 +39,31 @@ def input_map_size():
     global y
     global move_count
     global visiblemap
+<<<<<<< HEAD
+    len_edge = int(input("Enter size of map \n "))
+    bomb_num = int(input("Enter number of bombs"))
+=======
     len_edge = 0
     bomb_num = 0
     while len_edge not in range(1,16):
         try:
-            len_edge = int(input("Enter size of map (max:15): \n"))
+            len_edge = int(input("Enter size of map (max:15) "))
         except:
             pass
     max_bomb_num = len_edge ** 2 // 2
     while bomb_num not in range(1, max_bomb_num):
         try:
-            bomb_num = int(input("Enter number of bombs (max: 50%\ of squares): \n"))
+            bomb_num = int(input("Enter number of bombs (max: 50%\ of squares)"))
         except:
             pass
+>>>>>>> 16d84fed6520fb9415545c40909c57afce6730d9
     for line in range(len_edge):
-        hidemap.append([0]*len_edge)
+        hidemap.append([0]*len_edge)         #creating a base fo the hidemap generator
     for line in range(len_edge):
-        visiblemap.append(["[ ]"]*len_edge) 
+        visiblemap.append(["[ ]"]*len_edge)      #creating the visiblemap
     x = len_edge // 2
-    y = len_edge // 2 
-    move_count = 0 
+    y = len_edge // 2 #starting position
+    move_count = 0 #initial state of movecount
 
 def screen(hidemap):    
     count = 0
@@ -94,30 +99,29 @@ def menu():
     print("\n")
     print(Fore.CYAN + "< S * A * P * E * R >" .center(60, " "))
     print(Style.RESET_ALL)
-
+    
     print(Back.GREEN + "Play - press 'p'" .center(60, " "))
     print(Style.RESET_ALL)
-
+    
     print(Back.YELLOW + "Instructions - press 'i'" .center(60, " "))
     print(Style.RESET_ALL)
-
+    
     print(Back.RED + "Exit - press 'e'" .center(60, " "))
     print(Style.RESET_ALL)
-
-    user_input = 0
-    while user_input not in ["p", "i", "e"]:
-        user_input = getch.getch()
-        if user_input == "p":
+    menu_key = 0
+    while menu_key not in ["p", "i", "e"]:
+        menu_key = getch.getch()
+        if menu_key == "p":
             hidemap_generator()
             play_saper()
-        elif user_input == "i":
+        elif menu_key == "i":
             show_instructions()
-        elif user_input == "e":
+        elif menu_key == "e":
             exit()
         else:
             print("value error")
 
-def play_saper():  
+def play_saper():   #zmiany! wprowadzam count odkrytych pól i jak osiagnie len_edge**2 - bomb_num to gracz wygrywa
     global move_count
     max_move_count = len_edge**2 - bomb_num 
     current_square_mark(y,x)
@@ -132,7 +136,7 @@ def play_saper():
 
 def choosing_square():
     global y, x
-    while 1: 
+    while 1:   #<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<napraw?
         key = getch.getch()
         if key in ["a","w","s","d","c","f"]:
             if key == "c":
@@ -199,14 +203,19 @@ def unveil_zeros(y,x):
             new_x += 1
         new_y += 1
 
+    
+
+
+
 def screen():
-    os.system('clear')
+    os.system('clear') #czyszczenie przed kazdym wyswietleniem
     count = 0
     for row in visiblemap:
         final_screen = ""
         joined_row = final_screen.join(visiblemap[count])
         print(joined_row) 
         count += 1
+
 
 def win_game():
     screen()
@@ -228,6 +237,7 @@ def game_over():
         if key == "m":
             menu()
 
+
 def show_instructions():
     print(">move around with 'W','A','S','D' keys, check the chosen square with 'C' key")
     print(">you can mark or unmark the current square with 'F'")
@@ -235,6 +245,8 @@ def show_instructions():
     print(">you lose when you uncover a bomb, win when you uncover everything except bombs")
     print(">good luck!")
     menu()
+
+
 
 menu()
 
